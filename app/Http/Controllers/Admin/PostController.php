@@ -39,7 +39,7 @@ class PostController extends Controller
         $newPost->content = $data['content'];
 
         $newPost->save();
-        return redirect()->route('posts.show', $newpost);
+        return redirect()->route('posts.show', $newPost);
     }
 
     /**
