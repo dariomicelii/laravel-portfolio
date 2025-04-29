@@ -15,7 +15,7 @@
 
 <div class="mb-4">
     <h2>-{{$post->author}}</h2>
-    <small>{{$post->category}}</small>
+    <small>Categoria: {{$post->category->name}}</small>
 </div>
 
 <section>

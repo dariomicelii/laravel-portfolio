@@ -20,7 +20,11 @@
 
     <div class="form-control mb-3 d-flex flex-column">
         <label for="category">Categoria</label>
-        <input type="text" name="category" id="category" value="{{ $post->category }}">
+        <select name="category_id" id="category_id">
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+            @endforeach
+        </select>
     </div>
 
     <div class="form-control mb-3 d-flex flex-column">
