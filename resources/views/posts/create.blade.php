@@ -26,6 +26,17 @@
         </select>
     </div>
 
+    {{-- Tags --}}
+
+    <div class="form-control mb-3 d-flex flex-wrap">
+        @foreach($tags as $tag)
+            <div class="tag me-2">
+                <input type="checkbox" name="tags[]" id="tag_{{ $tag->id }}" value="{{ $tag->id }}">
+                <label for="tag_{{ $tag->id }}">{{ $tag->name }}</label>
+            </div>
+        @endforeach
+    </div>
+
     <div class="form-control mb-3 d-flex flex-column">
         <label for="content">Contenuto</label>
         <textarea name="content" id="content" rows="5"></textarea>

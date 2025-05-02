@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -23,8 +24,13 @@ class PostController extends Controller
      */
     public function create()
     {
+        //prendo le categorie
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+
+        //prendo i tag
+        $tags = Tag::all();
+
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -41,6 +47,14 @@ class PostController extends Controller
         $newPost->content = $data['content'];
 
         $newPost->save();
+
+        //sempre DOPO aver salvato i dati
+
+        //controllo se ricevo dei tag
+        if($request->has('tags')) {
+            $newPost->tags()->attach($data['tags']);
+        }
+        
         return redirect()->route('posts.show', $newPost);
     }
 
@@ -58,7 +72,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -74,6 +89,17 @@ class PostController extends Controller
         $post->content = $data['content'];
 
         $post->update();
+        
+        //verifichiamo che i tag siano stati selezionati
+        if($request->has('tags')) {
+            //sincronizziamo i tag della tabella pivot
+            $post->tags()->sync($data['tags']);
+        }else {
+            //se non sono stati selezionati, eliminiamo i tag associati
+            $post->tags()->detach();    
+        }
+
+
         return redirect()->route('posts.show', $post);
     }
 

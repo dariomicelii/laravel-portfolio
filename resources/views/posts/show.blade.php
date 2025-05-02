@@ -13,9 +13,17 @@
        
 </div>
 
-<div class="mb-4">
+<div class="mb-4 d-flex flex-column gap-2">
     <h2>-{{$post->author}}</h2>
     <small>Categoria: {{$post->category->name}}</small>
+    <small>
+      Tags:
+      @forelse($post->tags as $tag)
+        <span class="badge" style="background-color: {{ $tag->color }}">{{ $tag->name }}</span>
+      @empty
+        <span class="badge bg-secondary">Nessun tag</span>
+      @endforelse
+    </small>
 </div>
 
 <section>

@@ -20,10 +20,10 @@
         <tbody>
             @foreach ($posts as $post)
             <tr>
-                <td>{{ $post->title }}</td>
-                <td>{{ $post->author }}</td>
-                <td>{{ $post->category }}</td>
-                <td>
+                <td class="px-2">{{ $post->title }}</td>
+                <td class="px-2">{{ $post->author }}</td>
+                <td class="px-2">{{ $post->category->name }}</td>
+                <td class="px-2">
                     <a href="{{ route('posts.show', $post) }}">Visualizza</a>
                 </td>    
             </tr>
